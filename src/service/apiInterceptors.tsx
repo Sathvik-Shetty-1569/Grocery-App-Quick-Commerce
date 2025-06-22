@@ -4,7 +4,7 @@ import { refresh_tokens } from "./authService";
 import { tokenStorage } from "@state/storage";
 
 export const appAxios = axios.create({
-    baseURL: BASE_URL,
+    baseURL: BASE_URL
 })
 
 appAxios.interceptors.request.use(
