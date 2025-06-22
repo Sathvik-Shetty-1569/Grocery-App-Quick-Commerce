@@ -1,4 +1,4 @@
-import { Animated, SafeAreaView, StyleSheet, Text, View , Image} from 'react-native'
+import { Animated, SafeAreaView, StyleSheet, Text, View , Image, Keyboard, Alert} from 'react-native'
 import React, { useEffect, useRef } from 'react'
 import CustomSafeAreaView from '@components/global/CustomSafeAreaView'
 import { GestureHandlerRootView, PanGestureHandler, State } from 'react-native-gesture-handler'
@@ -11,6 +11,8 @@ import { resetAndNavigate } from '@utils/NavigationUtils'
 import useKeyboardOffsetHeight from '@utils/useKeyboardOffsetHeight'
 import LinearGradient from 'react-native-linear-gradient'
 import CustomInput from '@components/ui/CustomInput'
+import CustomButton from '@components/ui/CustomButton'
+import { customerLogin } from '@service/authService'
 const bottomColors = [...lightColors].reverse()
 
 const CustomerLogin = () => {
@@ -32,8 +34,8 @@ const CustomerLogin = () => {
             }).start()
         } else {
             Animated.timing(animatedValue, {
-                toValue: keyboardOffsetHeight * 0.84,
-                duration: 1000,
+            toValue: -Math.min(keyboardOffsetHeight, 150), // Move up, but cap at 100
+            duration: 250,
                 useNativeDriver: true
             }).start()
         }
@@ -58,6 +60,20 @@ const CustomerLogin = () => {
             }
         }
     }
+const handleAuth = async() => {
+    Keyboard.dismiss()
+    setLoading(true)
+    try {
+        await customerLogin(phoneNumber)
+        resetAndNavigate('ProductDashboard')
+    } catch (error) {
+        Alert.alert("Login Failed")
+    }finally {
+        setLoading(false)
+    }
+    
+}
+
 
     return (
         <GestureHandlerRootView style={styles.container}>
@@ -95,6 +111,13 @@ const CustomerLogin = () => {
                        }
                        
                        />
+                       <CustomButton
+                       disabled={phoneNumber?.length != 10}
+                       onPress={()=>handleAuth}
+                       loading={loading}
+                       title='Continue'
+                       />
+
                        </View>
                        
                         </Animated.ScrollView>
@@ -152,6 +175,7 @@ const styles = StyleSheet.create({
     },
     gradient: {
         paddingTop: 60,
+        marginTop: 360,
         width: '100%',
 
     },
