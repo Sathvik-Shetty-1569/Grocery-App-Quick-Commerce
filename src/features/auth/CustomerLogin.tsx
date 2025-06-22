@@ -1,4 +1,4 @@
-import { Animated, SafeAreaView, StyleSheet, Text, View , Image, Keyboard, Alert} from 'react-native'
+import { Animated, SafeAreaView, StyleSheet, Text, View , Image, Keyboard, Alert, Touchable, TouchableOpacity, Platform} from 'react-native'
 import React, { useEffect, useRef } from 'react'
 import CustomSafeAreaView from '@components/global/CustomSafeAreaView'
 import { GestureHandlerRootView, PanGestureHandler, State } from 'react-native-gesture-handler'
@@ -13,6 +13,7 @@ import LinearGradient from 'react-native-linear-gradient'
 import CustomInput from '@components/ui/CustomInput'
 import CustomButton from '@components/ui/CustomButton'
 import { customerLogin } from '@service/authService'
+import  Icon  from 'react-native-vector-icons/MaterialCommunityIcons'
 const bottomColors = [...lightColors].reverse()
 
 const CustomerLogin = () => {
@@ -133,6 +134,9 @@ const handleAuth = async() => {
                     </CustomText>
                     <SafeAreaView />
                 </View>
+                <TouchableOpacity style={styles.absoluteSwitch} onPress={() => resetAndNavigate('DeliveryLogin')}>
+<Icon name='bike-fast' color="#000" size={RFValue(14)}/>
+                </TouchableOpacity>
             </View>
         </GestureHandlerRootView>
     )
@@ -158,6 +162,28 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         marginBottom: 20,
+    },
+    absoluteSwitch: {
+        position: 'absolute',
+        top:Platform.OS === 'ios' ? 40 :20,
+        backgroundColor:"#fff",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 1,
+            height: 1
+        },
+        shadowOpacity: 0.5,
+        shadowRadius: 12,
+        padding : 10,
+        height: 55,
+        width: 55,
+        borderRadius: 50,
+        
+        elevation: 10,
+        right: 10,
+        zIndex: 99,
+        justifyContent: "center",
+        alignItems: "center"
     },
     footer: {
         borderTopWidth: 0.8,
