@@ -113,7 +113,7 @@ const handleAuth = async() => {
                        />
                        <CustomButton
                        disabled={phoneNumber?.length != 10}
-                       onPress={()=>handleAuth}
+                        onPress={handleAuth}  // Fixed this line
                        loading={loading}
                        title='Continue'
                        />
