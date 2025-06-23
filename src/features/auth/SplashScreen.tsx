@@ -21,11 +21,11 @@ interface DecodedToken {
     exp: number;
 }
 const SplashScreen: FC = () => {
-    const {user, setuser} = useAuthStore()
+    const {user, setUser} = useAuthStore()
     const tokenCheck = async () => {
         const accessToken =  tokenStorage.getString("accessToken") as string
         const refreshToken =  tokenStorage.getString("refreshToken") as string
-        
+
         resetAndNavigate("CustomerLogin")
         return false
 

@@ -72,7 +72,7 @@ const ProductDashboard = () => {
       )
 
     }
-// updateUser()
+updateUser()
   }
   , [])
   return (

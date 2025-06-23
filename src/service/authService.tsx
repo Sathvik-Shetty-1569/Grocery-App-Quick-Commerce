@@ -10,8 +10,8 @@ const response = axios.post(`${BASE_URL}/customer/login`,{phone})
 const {accessToken,refreshToken,customer} = (await response).data
 tokenStorage.set("accessToken",accessToken);
 tokenStorage.set("refreshToken",refreshToken);
-const {setuser} = useAuthStore.getState()
-setuser(customer);
+const {setUser} = useAuthStore.getState()
+setUser(customer);
 
     }catch(error){
         console.log("Login error",error);
@@ -24,8 +24,8 @@ const response = axios.post(`${BASE_URL}/delivery/login`,{email,password})
 const {accessToken,refreshToken,deliveryPartner} = (await response).data
 tokenStorage.set("accessToken",accessToken);
 tokenStorage.set("refreshToken",refreshToken);
-const {setuser} = useAuthStore.getState()
-setuser(deliveryPartner);
+const {setUser} = useAuthStore.getState()
+setUser(deliveryPartner);
 
     }catch(error){
         console.log("Login error",error);

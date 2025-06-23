@@ -6,6 +6,8 @@ import { reverseGeocode } from '@service/mapService'
 import CustomText from '@components/ui/CustomText'
 import { Fonts } from '@utils/Constants'
 import { RFValue } from 'react-native-responsive-fontsize'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { navigate } from '@utils/NavigationUtils'
 
 const Header: FC<{ showNotice: () => void }> = ({ showNotice }) => {
     const { setUser, user } = useAuthStore()
@@ -24,19 +26,33 @@ const Header: FC<{ showNotice: () => void }> = ({ showNotice }) => {
             }
         )
     }
-    //     useEffect(() => {
-    // updateUserLocation()
-    //     }, [])
+        useEffect(() => {
+    updateUserLocation()
+        }, [])
     return (
         <View style={styles.subContainer}>
             <TouchableOpacity activeOpacity={0.8}>
                 <CustomText fontFamily={Fonts.Bold} variant='h8' style={styles.text}>Delivery in</CustomText>
                 <View style={styles.flexRowGap}>
-                    <CustomText fontFamily={Fonts.SemiBold} variant='h2' style={styles.text2}>15 minutes</CustomText>
+                    <CustomText fontFamily={Fonts.SemiBold} variant='h2' style={styles.text}>15 minutes</CustomText>
                     <TouchableOpacity onPress={showNotice} style={styles.noticeBtn}>
                         <CustomText fontFamily={Fonts.SemiBold} fontSize={RFValue(5)} style={{ color: "#3b4886" }} >🌧️Rain</CustomText>
                     </TouchableOpacity>
                 </View>
+
+                <View style={styles.flexRow}>
+                    <CustomText fontFamily={Fonts.SemiBold} variant='h8' numberOfLines={1} style={styles.text2}>
+                        {user?.address||'Knowhere, Somewhere 😅'}</CustomText> 
+                        <Icon
+                        name="menu-down"
+                        color="#fff"
+                        size={RFValue(20)}
+                        style={{bottom: -1}}
+                        />
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={()=>navigate('Profile')}>
+                <Icon name='account-circle-outline' size={RFValue(36)} color='#fff'/>
             </TouchableOpacity>
         </View>
     )
