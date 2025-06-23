@@ -4,7 +4,8 @@ import { NoticeHeight } from '@utils/Scaling'
 import Notice from './Notice'
 
 
-const NOTICE_HEIGHT = (NoticeHeight + 12) 
+const NOTICE_HEIGHT = -(NoticeHeight + 11
+) 
 
 const NoticeAnimation:FC<{noticePosition:any; children:React.ReactElement}>
  = ({noticePosition, children}) => 
@@ -15,8 +16,8 @@ const NoticeAnimation:FC<{noticePosition:any; children:React.ReactElement}>
         </Animated.View>
         <Animated.View style={[styles.contentContainer,{
             paddingTop: noticePosition.interpolate({
-                inputRange: [0, NOTICE_HEIGHT],
-outputRange: [NOTICE_HEIGHT + 20, 0],
+                inputRange: [NOTICE_HEIGHT,0],
+                outputRange: [0, NoticeHeight + 20],
             })
         }]}>
             {children}

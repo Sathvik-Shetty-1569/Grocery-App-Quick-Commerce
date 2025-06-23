@@ -4,10 +4,10 @@ import { tokenStorage } from "@state/storage";
 import { useAuthStore } from "@state/authStore";
 import { resetAndNavigate } from "@utils/NavigationUtils";
 import { appAxios } from "./apiInterceptors";
-export const customerLogin = async (phone: String) => {
+export const customerLogin = async (phone: string) => {
     try{
 const response = axios.post(`${BASE_URL}/customer/login`,{phone}) 
-const {accessToken,refreshToken,customer} = (await response).data
+const { accessToken, refreshToken, customer } = (await response).data;
 tokenStorage.set("accessToken",accessToken);
 tokenStorage.set("refreshToken",refreshToken);
 const {setUser} = useAuthStore.getState()
@@ -20,6 +20,7 @@ setUser(customer);
 
 export const deliveryLogin = async (email:string , password: string) => {
     try{
+        // console.log(`${BASE_URL}/delivery/login`,{email,password});
 const response = axios.post(`${BASE_URL}/delivery/login`,{email,password}) 
 const {accessToken,refreshToken,deliveryPartner} = (await response).data
 tokenStorage.set("accessToken",accessToken);

@@ -16,7 +16,7 @@ const AnimatedHeader:FC<{ showNotice:()=>void}> = ({showNotice}) => {
         return {opacity}
     })
   return (
-    <Animated.View>
+    <Animated.View style={headerAnimatedStyle}>
         <Header showNotice={showNotice}/>
     </Animated.View>
   )
