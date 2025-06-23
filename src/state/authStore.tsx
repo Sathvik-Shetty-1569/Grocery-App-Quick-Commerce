@@ -4,7 +4,7 @@ import { mmkvStorage } from "./storage";
 
 interface authStore {
     user: Record<string, any> | null;
-    setuser: (user: any) => void;
+    setUser: (user: any) => void;
     setCurrentOrder: (order: any) => void;
     currentOrder: Record<string, any> |null;
     logout: () => void;
@@ -16,7 +16,7 @@ export const useAuthStore = create<authStore>()(
             user:null,
             currentOrder:null,
             setCurrentOrder: (order) => set({ currentOrder: order }),
-            setuser: (data) => set({ user:data }),
+            setUser: (data) => set({ user:data }),
             logout: () => set({ user: null, currentOrder: null})
         }),
         {

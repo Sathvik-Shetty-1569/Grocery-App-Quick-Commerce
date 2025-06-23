@@ -25,6 +25,7 @@ const SplashScreen: FC = () => {
     const tokenCheck = async () => {
         const accessToken =  tokenStorage.getString("accessToken") as string
         const refreshToken =  tokenStorage.getString("refreshToken") as string
+        
         resetAndNavigate("CustomerLogin")
         return false
 
