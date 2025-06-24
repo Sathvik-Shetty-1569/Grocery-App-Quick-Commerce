@@ -35,14 +35,14 @@ const ProductCategories = () => {
             <CustomHeader title={selectedCategory?.name || 'Categories'} search />
             <View style={styles.subContainer}>
                 {
-                    categoriesLoading ?
-                        <ActivityIndicator size='small' color={Colors.border} /> :
-                        <Sidebar
+                    categoriesLoading ? (
+                        <ActivityIndicator size='small' color={Colors.border} />) :
+(                        <Sidebar
                             categories={categories}
                             selectedCategory={selectedCategory}
                             onCategoryPress={(category: any) => setSelectedCategory(category)}
                         />
-                }
+               ) }
             </View>
 
         </View>
