@@ -17,16 +17,16 @@ const generateTokens = (user) => {
 export const loginCustomer = async (req, reply) => {
     try {
         const {phone} = req.body;
-        let Customer = await Customer.findOne({phone});
-        if(!Customer) {
-            Customer = new Customer({
+        let customer = await Customer.findOne({phone});
+        if(!customer) {
+            customer = new Customer({
                 phone,
                 role : 'Customer',
                 isActivated : true
             });
-            await Customer.save();
+            await customer.save();
         }
-        const {accessToken, refreshToken} = generateTokens(Customer);
+        const {accessToken, refreshToken} = generateTokens(customer);
         return reply.send({
             message : "Login Successful",
             accessToken,

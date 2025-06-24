@@ -26,7 +26,7 @@ const SplashScreen: FC = () => {
         const accessToken =  tokenStorage.getString("accessToken") as string
         const refreshToken =  tokenStorage.getString("refreshToken") as string
 
-        resetAndNavigate("ProductDashboard")
+        resetAndNavigate("CustomerLogin")
         return false
 
         if(accessToken){
