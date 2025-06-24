@@ -1,52 +1,49 @@
-import React, { useState } from "react";
+import { adData } from "@utils/dummyData";
+import React from "react";
 import { StyleSheet, FlatList, Image, Dimensions, View } from 'react-native';
 import Animated, {
   interpolate,
   Extrapolate,
   useSharedValue,
-  useAnimatedStyle
+  useAnimatedStyle,
+  useAnimatedScrollHandler
 } from "react-native-reanimated";
 
-const {width:SRC_WIDTH} = Dimensions.get("window");
+const { width: SRC_WIDTH } = Dimensions.get("window");
 const CARD_LENGTH = SRC_WIDTH * 0.8;
 const SPACING = SRC_WIDTH * 0.02;
-const SIDECARD_LENGTH = (SRC_WIDTH - CARD_LENGTH) ;
+const SIDECARD_LENGTH = (SRC_WIDTH - CARD_LENGTH) / 2;
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 interface ItemProps {
   index: number;
-  scrollX: number;
+  scrollX: Animated.SharedValue<number>;
   image: any;
 }
 
 function Item({ index, scrollX, image }: ItemProps) {
-  const size = useSharedValue(0.8);
-  const opacity = useSharedValue(1);
-
   const inputRange = [
-    (index - 1) * CARD_LENGTH,
-    index * CARD_LENGTH,
-    (index + 1) * CARD_LENGTH
+    (index - 1) * (CARD_LENGTH + SPACING),
+    index * (CARD_LENGTH + SPACING),
+    (index + 1) * (CARD_LENGTH + SPACING),
   ];
 
-  size.value = interpolate(
-    scrollX,
-    inputRange,
-    [0.8, 1, 0.8],
-    Extrapolate.CLAMP
-  );
-
-  opacity.value = interpolate(
-    scrollX,
-    inputRange,
-    [0.5, 1, 0.5],
-    Extrapolate.CLAMP
-  );
-
-  const cardStyle = useAnimatedStyle(() => {
+  const animatedStyle = useAnimatedStyle(() => {
+    const scaleY = interpolate(
+      scrollX.value,
+      inputRange,
+      [0.9, 1, 0.9],
+      Extrapolate.CLAMP
+    );
+    const opacity = interpolate(
+      scrollX.value,
+      inputRange,
+      [0.5, 1, 0.5],
+      Extrapolate.CLAMP
+    );
     return {
-      transform: [{ scaleY: size.value }],
-      opacity: opacity.value,
+      transform: [{ scaleY }],
+      opacity,
     };
   });
 
@@ -54,10 +51,10 @@ function Item({ index, scrollX, image }: ItemProps) {
     <Animated.View
       style={[
         styles.card,
-        cardStyle,
+        animatedStyle,
         {
-          marginLeft: index === 0 ? SIDECARD_LENGTH : SPACING,
-          marginRight: index === 2 ? SIDECARD_LENGTH : SPACING
+          marginLeft: index === 0 ? SIDECARD_LENGTH : SPACING / 2,
+          marginRight: index === adData.length - 1 ? SIDECARD_LENGTH : SPACING / 2
         }
       ]}
     >
@@ -67,7 +64,13 @@ function Item({ index, scrollX, image }: ItemProps) {
 }
 
 export default function Carousel({ adData }: { adData: any[] }) {
-  const [scrollX, setScrollX] = useState(0);
+  const scrollX = useSharedValue(0);
+
+  const onScroll = useAnimatedScrollHandler({
+    onScroll: (event) => {
+      scrollX.value = event.contentOffset.x;
+    },
+  });
 
   return (
     <View style={styles.container}>
@@ -75,18 +78,15 @@ export default function Carousel({ adData }: { adData: any[] }) {
         data={adData}
         horizontal
         showsHorizontalScrollIndicator={false}
-        snapToInterval={CARD_LENGTH + SPACING * 2}
+        snapToInterval={CARD_LENGTH + SPACING}
         decelerationRate="fast"
-        snapToAlignment="center"
+        snapToAlignment="start"
         scrollEventThrottle={16}
-        contentContainerStyle={styles.contentContainer}
+        onScroll={onScroll}
         renderItem={({ item, index }) => (
           <Item index={index} scrollX={scrollX} image={item} />
         )}
         keyExtractor={(_, index) => index.toString()}
-        onScroll={(event) => {
-          setScrollX(event.nativeEvent.contentOffset.x);
-        }}
       />
     </View>
   );
@@ -98,17 +98,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  contentContainer: {
-    paddingHorizontal: SIDECARD_LENGTH - SPACING,
-  },
   card: {
     width: CARD_LENGTH,
     height: 150,
     overflow: "hidden",
     borderRadius: 15,
-    backgroundColor: 'white', // Optional: for better visibility
-    elevation: 5, // Optional: for Android shadow
-    shadowColor: '#000', // Optional: for iOS shadow
+    backgroundColor: 'white',
+    elevation: 5,
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 4,

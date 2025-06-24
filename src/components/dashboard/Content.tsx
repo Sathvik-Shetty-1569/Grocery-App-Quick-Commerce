@@ -33,7 +33,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
    carouselContainer: {
-    marginHorizontal: -20, // Counteracts the parent's padding
-    paddingHorizontal: 20, // Adds padding back for carousel content
+   marginLeft: -40,
+    marginRight: -20,
+    paddingLeft: 20,
+    paddingRight: 20,
   }
 })
