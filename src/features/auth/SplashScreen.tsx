@@ -26,7 +26,7 @@ const SplashScreen: FC = () => {
         const accessToken =  tokenStorage.getString("accessToken") as string
         const refreshToken =  tokenStorage.getString("refreshToken") as string
 
-        resetAndNavigate("CustomerLogin")
+        resetAndNavigate("ProductDashboard")
         return false
 
         if(accessToken){
@@ -43,7 +43,7 @@ const SplashScreen: FC = () => {
         if(decodedAccessToken?.exp < currentTime) {
         try {
             refresh_tokens()
-            await refetchUser(setuser)
+            await refetchUser(setUser)
         } catch (error) {
             console.log("Error refreshing token", error)
             Alert.alert("There was an error refreshing token!")

@@ -15,7 +15,6 @@ import { reverseGeocode } from '@service/mapService'
 import NoticeAnimation from './NoticeAnimation'
 import Visuals from './Visuals'
 import Icon from 'react-native-vector-icons/Ionicons'
-import { AnimatedView } from 'react-native-reanimated/lib/typescript/component/View'
 import { RFValue } from 'react-native-responsive-fontsize'
 import CustomText from '@components/ui/CustomText'
 import { Fonts } from '@utils/Constants'
@@ -24,17 +23,22 @@ import AnimatedHeader from './AnimatedHeader'
 import StickySearchBar from './StickySearchBar'
 import Content from '@components/dashboard/Content'
 
-const NOTICE_HEIGHT = -(NoticeHeight + 12) 
+const NOTICE_HEIGHT = -Math.round((NoticeHeight + 12) * 100) / 100;
 
 const ProductDashboard = () => {
   const {user, setUser} = useAuthStore()
   const noticePosition = useRef(new RNAnimated.Value(NOTICE_HEIGHT)).current
+
+    console.log(`Initial noticePosition value: ${NOTICE_HEIGHT}`); // Debug log
+console.log(`Screen height calculations: ${screenHeight}, ${NoticeHeight}`);
 
   const {scrollY, expand} = useCollapsibleContext()
   const previousScroll = useRef<number>(0) 
 
   const backTOTopStyle = useAnimatedStyle(() => {
     const isScrollingUp = scrollY.value < previousScroll.current && scrollY.value > 180
+        console.log(`Scroll values - current: ${scrollY.value}, previous: ${previousScroll.current}`); // Debug log
+
     const opacity = withTiming(isScrollingUp ? 1 : 0, {duration : 300})
     const translateY = withTiming(isScrollingUp ? 0 : 10, {duration: 300})
     previousScroll.current = scrollY.value
@@ -45,6 +49,8 @@ const ProductDashboard = () => {
   })
 
   const slideUp = () => {
+        console.log('SlideUp triggered'); // Debug log
+
     RNAnimated.timing(noticePosition, {
       toValue: NOTICE_HEIGHT,
       duration: 1200,
@@ -53,6 +59,8 @@ const ProductDashboard = () => {
   }
 
   const slideDown = () => {
+        console.log('SlideDown triggered'); // Debug log
+
     RNAnimated.timing(noticePosition, {
       toValue: 0,
       duration: 1200,
@@ -77,13 +85,20 @@ const ProductDashboard = () => {
 // updateUser()
 //   }
 //   , [])
+console.log('Component mounted');
 
 useEffect(() => {
+      console.log('Initial animation effect running'); // Debug log
+
   slideDown()
   const timeoutId = setTimeout(() => {
+          console.log('Timeout callback executing'); // Debug log
+
     slideUp()
-  }, 3500);
+  }, 2500);
   return () => clearTimeout(timeoutId);
+        console.log('Cleanup function called'); // Debug log
+
 }, [])
   return (
 <NoticeAnimation noticePosition={noticePosition}>
@@ -153,7 +168,7 @@ const styles = StyleSheet.create({
   backToTopButton: {
     position: 'absolute',
     alignSelf: 'center',
-    top: Platform.OS === 'ios' ? screenHeight * 0.18 : 100,
+    top: 100,
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
@@ -161,8 +176,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     paddingHorizontal: 10,
     paddingVertical: 5,
-    zIndex: 9999,
-    elevation: 9999,
+    zIndex: 999
 
   },
 

@@ -35,7 +35,7 @@ const CustomerLogin = () => {
             }).start()
         } else {
             Animated.timing(animatedValue, {
-            toValue: -Math.min(keyboardOffsetHeight, 150), // Move up, but cap at 100
+            toValue: -keyboardOffsetHeight*0.84,
             duration: 250,
                 useNativeDriver: true
             }).start()
