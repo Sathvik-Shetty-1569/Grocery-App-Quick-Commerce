@@ -10,7 +10,7 @@ import Animated, {
 } from "react-native-reanimated";
 
 const { width: SRC_WIDTH } = Dimensions.get("window");
-const CARD_LENGTH = SRC_WIDTH * 0.8;
+const CARD_LENGTH = SRC_WIDTH * 0.8 ;
 const SPACING = SRC_WIDTH * 0.02;
 const SIDECARD_LENGTH = (SRC_WIDTH - CARD_LENGTH) / 2;
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
@@ -32,7 +32,7 @@ function Item({ index, scrollX, image }: ItemProps) {
     const scaleY = interpolate(
       scrollX.value,
       inputRange,
-      [0.9, 1, 0.9],
+      [0.8, 1, 0.8],
       Extrapolate.CLAMP
     );
     const opacity = interpolate(
@@ -99,8 +99,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   card: {
-    width: CARD_LENGTH,
-    height: 150,
+    width: CARD_LENGTH  *  0.9,
+    marginVertical: 10,
+    height: 175,
     overflow: "hidden",
     borderRadius: 15,
     backgroundColor: 'white',

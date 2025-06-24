@@ -67,37 +67,16 @@ console.log(`Screen height calculations: ${screenHeight}, ${NoticeHeight}`);
       useNativeDriver: false
     }).start()
   }
-//   useEffect(() => {
-//     const updateUser = () => {
-//       Geolocation.getCurrentPosition(
-//         position => {
-//           const{latitude, longitude} = position.coords
-//           reverseGeocode(latitude, longitude, setUser)
-//         },
-//       err=>console.log(err),
-//       {
-//         enableHighAccuracy: false,
-//         timeout: 15000
-//       }
-//       )
 
-//     }
-// updateUser()
-//   }
-//   , [])
-console.log('Component mounted');
 
 useEffect(() => {
-      console.log('Initial animation effect running'); // Debug log
 
   slideDown()
   const timeoutId = setTimeout(() => {
-          console.log('Timeout callback executing'); // Debug log
 
     slideUp()
   }, 2500);
   return () => clearTimeout(timeoutId);
-        console.log('Cleanup function called'); // Debug log
 
 }, [])
   return (
