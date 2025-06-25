@@ -15,6 +15,8 @@ async function seedDatabase() {
       map[category.name] = category._id;
       return map;
     }, {});
+
+    
     
     const productWithCategoryIds = products.map((product) => ({
       ...product,
