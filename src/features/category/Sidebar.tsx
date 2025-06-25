@@ -1,7 +1,9 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { FC, useEffect, useRef } from 'react'
 import Animated, { runOnJS, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import { Colors } from '@utils/Constants';
+import CustomText from '@components/ui/CustomText';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 interface SidebarProps {
     selectedCategory: any;
@@ -42,7 +44,31 @@ const Sidebar: FC<SidebarProps> = ({ selectedCategory, categories, onCategoryPre
                 contentContainerStyle={{ paddingBottom: 50 }}
                 showsVerticalScrollIndicator={false}>
                 <Animated.View style={[styles.indicator, indicatorStyle]} />
+                <View>
+                    {categories?.map((category: any, index: number) => {
 
+                        const animatedStyle = useAnimatedStyle(() => ({
+                            bottom: animatedValues[index].value
+
+                        }))
+                        return (
+                            <TouchableOpacity
+                                key={index}
+                                activeOpacity={1}
+                                style={styles.categoryButton}
+                                onPress={() => onCategoryPress(category)}>
+                                <View
+                                    style={[styles.imageContainer,
+                                    selectedCategory.id === category?._id && styles.selectedImageContainer]}>
+
+                                    <Animated.Image source={{ uri: category?.image }} style={[styles.image, animatedStyle]} />
+                                </View>
+                                <CustomText fontSize={RFValue(7)} style={{ textAlign: 'center' }}>{category?.name}</CustomText>
+
+                            </TouchableOpacity>
+                        );
+                    })}
+                </View>
 
             </ScrollView>
         </View>
@@ -69,5 +95,32 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.secondary,
         borderTopLeftRadius: 15,
         borderBottomLeftRadius: 15,
+    },
+    categoryButton: {
+        padding: 10,
+        height: 100,
+        paddingVertical: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%'
+    },
+    image: {
+        width: '80%',
+        height: '80%',
+        resizeMode: 'contain'
+    },
+    imageContainer: {
+        borderRadius: 100,
+        height: '50%',
+        marginBottom: 10,
+        width: '75%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: "#F3F4F7",
+        overflow: 'hidden'
+
+    },
+    selectedImageContainer: {
+        backgroundColor: "#cfffdb"
     }
 })
