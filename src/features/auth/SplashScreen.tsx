@@ -23,10 +23,11 @@ interface DecodedToken {
 const SplashScreen: FC = () => {
     const {user, setUser} = useAuthStore()
     const tokenCheck = async () => {
+
         const accessToken =  tokenStorage.getString("accessToken") as string
         const refreshToken =  tokenStorage.getString("refreshToken") as string
 
-      
+
 
         if(accessToken){
             const decodedAccessToken = jwtDecode<DecodedToken>(accessToken)
