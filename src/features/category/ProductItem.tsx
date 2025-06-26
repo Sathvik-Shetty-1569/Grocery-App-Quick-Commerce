@@ -4,6 +4,7 @@ import { screenHeight } from '@utils/Scaling';
 import { Colors, Fonts } from '@utils/Constants';
 import CustomText from '@components/ui/CustomText';
 import { RFValue } from 'react-native-responsive-fontsize';
+import UniversalAdd from '@components/ui/UniversalAdd';
 
 const ProductItem:FC<{item : any, index : number}> = ({index, item}) => {
     const isSecondColumn = index % 2 != 0;
@@ -27,8 +28,10 @@ const ProductItem:FC<{item : any, index : number}> = ({index, item}) => {
         fontFamily={Fonts.Medium}
         variant='h8'
         style={{opacity: 0.8, textDecorationLine: 'line-through'}}
-        >₹{item?.discountPrice}</CustomText>
+        >₹{item?.discountPrice}
+        </CustomText>
     </View>
+    <UniversalAdd item={item}/>
 </View>
 </View>
     </View>
@@ -51,7 +54,7 @@ imageContainer:{
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 5
+    padding: 12
 },
 image:{
     width: '100%',

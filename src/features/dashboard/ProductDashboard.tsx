@@ -22,6 +22,7 @@ import Animated, { useAnimatedStyle, withTiming } from 'react-native-reanimated'
 import AnimatedHeader from './AnimatedHeader'
 import StickySearchBar from './StickySearchBar'
 import Content from '@components/dashboard/Content'
+import withCart from '@features/cart/WithCart'
 
 const NOTICE_HEIGHT = -Math.round((NoticeHeight + 12) * 100) / 100;
 
@@ -163,4 +164,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default withCollapsibleContext(ProductDashboard)
+export default withCart(withCollapsibleContext(ProductDashboard));
