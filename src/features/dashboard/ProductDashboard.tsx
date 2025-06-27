@@ -30,15 +30,11 @@ const ProductDashboard = () => {
   const {user, setUser} = useAuthStore()
   const noticePosition = useRef(new RNAnimated.Value(NOTICE_HEIGHT)).current
 
-    console.log(`Initial noticePosition value: ${NOTICE_HEIGHT}`); // Debug log
-console.log(`Screen height calculations: ${screenHeight}, ${NoticeHeight}`);
-
   const {scrollY, expand} = useCollapsibleContext()
   const previousScroll = useRef<number>(0) 
 
   const backTOTopStyle = useAnimatedStyle(() => {
     const isScrollingUp = scrollY.value < previousScroll.current && scrollY.value > 180
-        console.log(`Scroll values - current: ${scrollY.value}, previous: ${previousScroll.current}`); // Debug log
 
     const opacity = withTiming(isScrollingUp ? 1 : 0, {duration : 300})
     const translateY = withTiming(isScrollingUp ? 0 : 10, {duration: 300})
@@ -50,7 +46,6 @@ console.log(`Screen height calculations: ${screenHeight}, ${NoticeHeight}`);
   })
 
   const slideUp = () => {
-        console.log('SlideUp triggered'); // Debug log
 
     RNAnimated.timing(noticePosition, {
       toValue: NOTICE_HEIGHT,
@@ -60,7 +55,6 @@ console.log(`Screen height calculations: ${screenHeight}, ${NoticeHeight}`);
   }
 
   const slideDown = () => {
-        console.log('SlideDown triggered'); // Debug log
 
     RNAnimated.timing(noticePosition, {
       toValue: 0,

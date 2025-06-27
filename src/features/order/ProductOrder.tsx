@@ -20,6 +20,8 @@ const ProductOrder = () => {
   const totalItemPrice = getTotalPrice()
   const [loading, setLoading] = useState(false);
   console.log("User info:",user);
+
+  
   const handlePlaceOrder = async() => {
     if(currentOrder!==null){
 Alert.alert("Let yoiur first order to be delivered")
