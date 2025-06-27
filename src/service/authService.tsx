@@ -55,7 +55,11 @@ try {
 export const refetchUser = async (setUser: any) => {
     try {
         const response = await appAxios.get(`/user`)
-        setUser(response.data.user) 
+         if (response?.data?.user) {
+            setUser(response.data.user);
+        } else {
+            console.warn("User not found in response", response.data);
+        }
     } catch (error) {
         console.log("Refetch user error", error);
     }

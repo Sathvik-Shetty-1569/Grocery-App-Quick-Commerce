@@ -9,9 +9,7 @@ import {
   withCollapsibleContext
 
 } from '@r0b0t3d/react-native-collapsible'
-import Geolocation from '@react-native-community/geolocation'
 import { useAuthStore } from '@state/authStore'
-import { reverseGeocode } from '@service/mapService'
 import NoticeAnimation from './NoticeAnimation'
 import Visuals from './Visuals'
 import Icon from 'react-native-vector-icons/Ionicons'

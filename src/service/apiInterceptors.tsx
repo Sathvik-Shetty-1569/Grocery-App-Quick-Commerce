@@ -7,8 +7,7 @@ export const appAxios = axios.create({
     baseURL: BASE_URL
 })
 
-appAxios.interceptors.request.use(
-    config => {
+appAxios.interceptors.request.use(async config => {
         const accessToken = tokenStorage.getString("accessToken");
         if (accessToken) {
             config.headers.Authorization = `Bearer ${accessToken}`;
@@ -35,6 +34,6 @@ appAxios.interceptors.response.use(
             const errorMessage = error.response.data.message || "An error occurred";
             console.log("Error", errorMessage);
         }
-        return Promise.resolve(error);
+        return Promise.reject(error);
     }
 )

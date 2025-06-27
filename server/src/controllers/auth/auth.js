@@ -97,6 +97,10 @@ export const refreshToken = async(req, reply)=>{
 }
 
 export const fetchUser = async (req, reply) => {
+
+     if (!req.user || !req.user.userId || !req.user.role) {
+        return reply.status(401).send({ message: "Unauthorized", user: null });
+    }
     try {
         const {userId, role} = req.user;
         let user;
