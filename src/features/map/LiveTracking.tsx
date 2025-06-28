@@ -8,9 +8,14 @@ import { RFValue } from 'react-native-responsive-fontsize'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons' 
 import CustomText from '@components/ui/CustomText'
 import OrderSummary from './OrderSummary'
+import DeliveryDetails from './DeliveryDetails'
 
 const LiveTracking = () => {
+    
     const {currentOrder, setCurrentOrder} = useAuthStore()
+    console.log("Customer Details:", currentOrder?.customer);
+
+console.log("Customer Details:", currentOrder?.customer);
 
     const fetchOrderDetails = async () => {
         const data = await getOrderById(currentOrder?._id as any)
@@ -73,7 +78,7 @@ const LiveTracking = () => {
                     </CustomText>
                 </View>
             </View>
-
+<DeliveryDetails details = {currentOrder?.customer}/>
             <OrderSummary order={currentOrder}/>
 
             <View style = {styles.flexRow}>

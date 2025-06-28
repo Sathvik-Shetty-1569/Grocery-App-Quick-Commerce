@@ -50,6 +50,7 @@ console.log("Items:", items);
        let savedOrder = await newOrder.save();
 
        savedOrder = await savedOrder.populate([
+        {path : "customer"},
         {path:"items.item"},
        ])
        return reply.status(201).send(savedOrder);
