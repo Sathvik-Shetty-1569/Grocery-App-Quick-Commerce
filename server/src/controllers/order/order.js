@@ -47,8 +47,12 @@ console.log("Items:", items);
             },
         });
 
-       const savedOrder = await newOrder.save();
-       return reply.status(200).send(savedOrder);
+       let savedOrder = await newOrder.save();
+
+       savedOrder = await savedOrder.populate([
+        {path:"items.item"},
+       ])
+       return reply.status(201).send(savedOrder);
     }
     catch(error){
         console.log(error)

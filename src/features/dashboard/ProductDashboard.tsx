@@ -21,6 +21,7 @@ import AnimatedHeader from './AnimatedHeader'
 import StickySearchBar from './StickySearchBar'
 import Content from '@components/dashboard/Content'
 import withCart from '@features/cart/WithCart'
+import withLiveStatus from '@features/map/withLiveStatus'
 
 const NOTICE_HEIGHT = -Math.round((NoticeHeight + 12) * 100) / 100;
 
@@ -156,4 +157,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default withCart(withCollapsibleContext(ProductDashboard));
+export default withLiveStatus(withCart(withCollapsibleContext(ProductDashboard)));
