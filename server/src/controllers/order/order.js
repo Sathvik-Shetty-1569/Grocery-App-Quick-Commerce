@@ -2,16 +2,29 @@ import Order from "../../models/order.js";
 import Branch from "../../models/branch.js";
 import {Customer, DeliveryPartner} from "../../models/user.js";
 export const createOrder = async (req, reply) => {
+    console.log("Received body:", req.body);
+
     try{
+        console.log(req.user)
         const {userId} = req.user;
         const {items, branch, totalPrice} = req.body;
 
         const customerData = await Customer.findById(userId)
-        const branchData = await branch.findById(branch);
+        const branchData = await Branch.findById(branch);
 
-        if(!customerData){
+        console.log("Customer Data:", customerData);
+console.log("Branch Data:", branchData);
+console.log("Items:", items);
+
+
+        if(!customerData || !branchData){
             return reply.status(404).send({message : "User or Branch not found"});
         }
+
+        if (!customerData.livelocation || !customerData.livelocation.latitude || !customerData.livelocation.longitude) {
+    return reply.status(400).send({ message: "Customer live location is missing or incomplete" });
+}
+
 
         const newOrder = new Order({
             customer:userId,
@@ -59,7 +72,7 @@ export const comfirmOrder = async (req, reply) => {
             return reply.status(404).send({message : "Order not found"});
         }
        
-        if(!order.status !== "availabe"){
+        if(order.status !== "availabe"){
             return reply.status(400).send({message : "Order is not available"});
         }
         order.status = "confirmed";
@@ -70,7 +83,7 @@ export const comfirmOrder = async (req, reply) => {
             longitude: deliveryPersonLocation.longitude,
             address: deliveryPerson.address || "No address available",
         };
-        req.server.io.to(orderId).emit("orderComfirmed", order);
+        req.server.io.to(orderId).emit("orderConfirmed", order);
 
         await order.save();
         return reply.send(order);
@@ -124,10 +137,10 @@ export const getOrders = async (req, reply) => {
             query.status = status;
         }
         if(customerId){
-            query.customerId = customerId;
+            query.customer = customerId;
         }
         if(deliveryPartnerId){
-            query.deliveryPartnerId = deliveryPartnerId;
+            query.deliveryPartner = deliveryPartnerId;
             query.branch = branchId;
         }
         const orders = await Order.find(query).populate("customer branch items.item deliveryPartner");

@@ -14,9 +14,9 @@ export const orderRoutes = async (fastify, options) => {
          return reply.code(401).send({ message: "Unauthorized" });
         }
     });
-    fastify.post("/order", createOrder);
+    fastify.post('/order', createOrder);
     fastify.get("/order", getOrders);
-    fastify.get("/order/:orderId/status", updateOrderStatus);
-    fastify.patch("/order/:orderId/comfirm", comfirmOrder);
-    fastify.patch("/order/:orderId", getOrderById);
+    fastify.patch("/order/:orderId/status", updateOrderStatus);
+    fastify.post("/order/:orderId/comfirm", comfirmOrder);
+    fastify.get("/order/:orderId", getOrderById);
 };

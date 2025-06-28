@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import Counter from "./counter.js";
 const orderSchema = new mongoose.Schema({
-    orderId: {type : String, required : true, unique : true},
+    orderId: {type : String,  unique : true},
     customer : {
         type : mongoose.Schema.Types.ObjectId,
         ref : "Customer", 
@@ -16,13 +16,14 @@ const orderSchema = new mongoose.Schema({
         ref : "Branch", 
         required : true,
     },
-    items : [{
+    items : [
+        {
         id:{
             type : mongoose.Schema.Types.ObjectId,
             ref : "Product", 
             required : true,
         },
-        items : { 
+        item : { 
             type : mongoose.Schema.Types.ObjectId,
             ref : "Product", 
             required : true,
@@ -30,22 +31,23 @@ const orderSchema = new mongoose.Schema({
         count : {type : Number, required : true},
       
 
-    },],
+    },
+],
 
-    deliverylocation : {
+    deliveryLocation : {
         latitude : {type : Number, required : true},
         longitude : {type : Number, required : true},
-        address : {type : String, required : true},
+        address : {type : String},
     },
     pickupLocation : {
         latitude : {type : Number, required : true},
         longitude : {type : Number, required : true},
-        address : {type : String, required : true},
+        address : {type : String},
     },
     deliveryPersonLocation : {
-        latitude : {type : Number, required : true},
-        longitude : {type : Number, required : true},
-        address : {type : String, required : true},
+        latitude : {type : Number},
+        longitude : {type : Number},
+        address : {type : String},
     },
     status : {
         type : String,
