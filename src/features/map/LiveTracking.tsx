@@ -14,9 +14,9 @@ import LiveMap from './LiveMap'
 const LiveTracking = () => {
     
     const {currentOrder, setCurrentOrder} = useAuthStore()
-    console.log("Customer Details:", currentOrder?.customer);
+    console.log("Current Order:", currentOrder);
 
-console.log("Customer Details:", currentOrder?.customer);
+console.log("Current Order.customer:", currentOrder?.customer);
 
     const fetchOrderDetails = async () => {
         const data = await getOrderById(currentOrder?._id as any)
@@ -24,7 +24,7 @@ console.log("Customer Details:", currentOrder?.customer);
     }
 
     useEffect(() => {
-        fetchOrderDetails
+        fetchOrderDetails()
     },[])
 
     let msg = "Packing your order"

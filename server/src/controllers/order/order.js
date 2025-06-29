@@ -2,19 +2,16 @@ import Order from "../../models/order.js";
 import Branch from "../../models/branch.js";
 import {Customer, DeliveryPartner} from "../../models/user.js";
 export const createOrder = async (req, reply) => {
-    console.log("Received body:", req.body);
 
     try{
         console.log(req.user)
         const {userId} = req.user;
         const {items, branch, totalPrice} = req.body;
 
+
         const customerData = await Customer.findById(userId)
         const branchData = await Branch.findById(branch);
 
-        console.log("Customer Data:", customerData);
-console.log("Branch Data:", branchData);
-console.log("Items:", items);
 
 
         if(!customerData || !branchData){
@@ -50,9 +47,10 @@ console.log("Items:", items);
        let savedOrder = await newOrder.save();
 
        savedOrder = await savedOrder.populate([
-        {path : "customer"},
         {path:"items.item"},
+        
        ])
+       console.log("Saved Order:", savedOrder);
        return reply.status(201).send(savedOrder);
     }
     catch(error){
@@ -77,7 +75,7 @@ export const comfirmOrder = async (req, reply) => {
             return reply.status(404).send({message : "Order not found"});
         }
        
-        if(order.status !== "availabe"){
+        if(order.status !== "available"){
             return reply.status(400).send({message : "Order is not available"});
         }
         order.status = "confirmed";
@@ -88,9 +86,12 @@ export const comfirmOrder = async (req, reply) => {
             longitude: deliveryPersonLocation.longitude,
             address: deliveryPerson.address || "No address available",
         };
-        req.server.io.to(orderId).emit("orderConfirmed", order);
+console.log("🔹 Emitting orderConfirmed for orderId:", orderId, "payload:", order);
 
-        await order.save();
+        req.server.io.to(orderId).emit("orderConfirmed", order);
+                        await order.save();
+
+
         return reply.send(order);
     }
 
@@ -126,7 +127,7 @@ export const updateOrderStatus = async (req, reply) => {
         order.deliveryPersonLocation = deliveryPersonLocation;
         await order.save();
 
-        req.server.io.to(orderId).emit("LiveTrackingUpdates", order);
+        req.server.io.to(orderId).emit("liveTrackingUpdates", order);
         return reply.send(order);
 }
 catch(error){
@@ -160,11 +161,32 @@ export const getOrders = async (req, reply) => {
 export const getOrderById = async (req, reply) => {
     try{
         const {orderId} = req.params;
-        const order = await Order.findById(orderId).populate("customer branch items.item deliveryPartner");
-        if(!order){
+        const order = await Order.findById(orderId)
+        .populate('customer')
+        .populate({path: 'branch',populate: {path: 'deliveryPartner'}})
+        .populate('items.item');
+
+
+            if(!order){
             return reply.status(404).send({message : "Order not found"});
         }
-        return reply.send(order);
+
+
+ const deliveryPartner = order.branch?.deliveryPartner?.[0];
+
+        if (deliveryPartner?.livelocation) {
+            // Clone the Mongoose object to modify it
+            const orderObject = order.toObject();
+            orderObject.deliveryPersonLocation = {
+                latitude: deliveryPartner.livelocation.latitude,
+                longitude: deliveryPartner.livelocation.longitude,
+                address: deliveryPartner.address || "No address available",
+            };
+            return reply.send(orderObject);
+        }
+console.log("Order:", JSON.stringify(order, null, 2));
+        
+    return reply.send(order);
     }
     catch(error){
         return reply.status(500).send({message : "Failed to retrieve order", error});

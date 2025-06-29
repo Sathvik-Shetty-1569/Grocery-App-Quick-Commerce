@@ -41,7 +41,12 @@ const LiveMap:FC<LiveMapProps> = ({
 <TouchableOpacity
 style = {styles.fitButton}
 onPress = {() => {
-    handleFitToPath(mapRef, deliveryLocation, pickupLocation, hasPickedUp, hasAccepted, deliveryPersonLocation);
+    handleFitToPath(mapRef,
+         deliveryLocation,
+          pickupLocation,
+           hasPickedUp,
+            hasAccepted,
+             deliveryPersonLocation);
 }}
 >
     <Icon name = 'target' size = {RFValue(14)} color = {Colors.text}/>

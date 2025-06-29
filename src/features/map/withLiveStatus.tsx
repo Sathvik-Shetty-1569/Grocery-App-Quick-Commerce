@@ -14,7 +14,7 @@ const withLiveStatus = <P extends object>(WrappedComponent: React.ComponentType<
 
     const WithLiveStatusComponent: FC<P> = (props) => {
         const { currentOrder, setCurrentOrder } = useAuthStore()
-        const routeName = useNavigationState(state => state.routes[state.index]?.name,)
+        const routeName = useNavigationState(state => state.routes[state.index]?.name)
 
         const fetchOrderDetails = async () => {
             const data = await getOrderById(currentOrder?._id as any)
@@ -22,19 +22,20 @@ const withLiveStatus = <P extends object>(WrappedComponent: React.ComponentType<
         };
 
         useEffect(() => {
+            
             if (currentOrder) {
                 const socketInstance = io(SOCKET_URL, {
                     transports: ['websocket'],
                     withCredentials: true,
                 })
-                socketInstance.emit('join', currentOrder._id)
-                socketInstance.on('LiveTrackingUpdates', (updatedOrder) => {
+                socketInstance.emit('joinRoom', currentOrder?._id)
+                socketInstance.on('liveTrackingUpdates', updatedOrder => {
                     fetchOrderDetails()
-                    console.log("RECEIVING LIVE UPDATES 🔴",)
+                    console.log("RECEIVING LIVE UPDATES 🔴",updatedOrder)
                 })
-                socketInstance.on('orderConfirmed', (confirmOrder) => {
+                socketInstance.on('orderConfirmed', confirmOrder => {
                     fetchOrderDetails()
-                    console.log("ORDER CONFIRMATION LIVE UPDATES 🔴")
+                    console.log("ORDER CONFIRMATION LIVE UPDATES 🔴",confirmOrder)
                 });
                 return () => {
                     socketInstance.disconnect();

@@ -19,7 +19,7 @@ export const getOrderById = async(id : string)=>{
 
     try{
         const response = await appAxios.get(`/order/${id}`);
-        return response.data
+        return response.data;
     }
     catch(error){
         console.log("Get order by id error", error);

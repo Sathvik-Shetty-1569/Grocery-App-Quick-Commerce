@@ -7,6 +7,7 @@ const branchSchema = new mongoose.Schema({
         latitude : {type : Number, required : true},
         longitude : {type : Number, required : true}
     }, 
+    
     address : {type : String, required : true},
     deliveryPartner: [
         {
@@ -15,6 +16,7 @@ const branchSchema = new mongoose.Schema({
         },
     ],
 });
-    
+
+
 const Branch = mongoose.model("Branch", branchSchema);
 export default Branch;

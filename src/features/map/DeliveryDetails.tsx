@@ -6,7 +6,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import CustomText from '@components/ui/CustomText'
 
 const DeliveryDetails:FC <{details: any}>= ({details}) => {
-    console.log("Delivery Details Props:", details);
 
   return (
     
