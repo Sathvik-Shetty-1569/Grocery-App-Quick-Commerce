@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { FC } from 'react'
+import React, { FC, useEffect, useRef } from 'react'
 import { Colors } from '@utils/Constants';
 import { screenHeight } from '@utils/Scaling';
 import { useMapRefStore } from '@state/mapStore';
@@ -26,6 +26,37 @@ const LiveMap:FC<LiveMapProps> = ({
 }) => {
 
     const {mapRef, setMapRef} = useMapRefStore();
+
+const mapReadyRef = useRef(false);
+const onMapReady = () => {
+
+    mapReadyRef.current = true;
+  if (mapRef) {
+    console.log("✅ Map ready — fitting path...");
+    handleFitToPath(
+      mapRef,
+      deliveryLocation,
+      pickupLocation,
+      hasPickedUp,
+      hasAccepted,
+      deliveryPersonLocation
+    );
+  }
+};
+
+useEffect(() => {
+  if (mapRef && mapReadyRef.current) {
+    handleFitToPath(
+      mapRef,
+      deliveryLocation,
+      pickupLocation,
+      hasPickedUp,
+      hasAccepted,
+      deliveryPersonLocation
+    );
+  }
+}, [mapRef, deliveryPersonLocation, pickupLocation, deliveryLocation, hasAccepted, hasPickedUp]);
+
   return (
 
     <View style = {styles.container}>
@@ -37,6 +68,8 @@ const LiveMap:FC<LiveMapProps> = ({
         pickupLocation = {pickupLocation}
         deliveryPersonLocation = {deliveryPersonLocation}
         hasPickedUp = {hasPickedUp}
+          onMapReady={onMapReady}
+
         />
 <TouchableOpacity
 style = {styles.fitButton}

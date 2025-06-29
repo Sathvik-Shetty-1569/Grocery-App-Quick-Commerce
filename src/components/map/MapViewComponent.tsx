@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import MapView, { Polyline } from 'react-native-maps';
 import { customMapStyle } from '@utils/CustomMap';
 import Markers from './Markers';
@@ -17,18 +17,26 @@ const MapViewComponent = ({
     deliveryLocation,
     pickupLocation,
     deliveryPersonLocation,
-    hasPickedUp
+    hasPickedUp,
+      onMapReady
+
 }: any ) => {
 
   console.log('deliveryLocation:', deliveryLocation);
 console.log('pickupLocation:', pickupLocation);
 console.log('deliveryPersonLocation:', deliveryPersonLocation);
+const internalRef = useRef<MapView>(null);
 
+  useEffect(() => {
+    if (internalRef.current) {
+      setMapRef(internalRef.current); // ✅ this ensures you store the real map ref
+    }
+  }, []);
 
 
   return (
     <MapView
-    ref={setMapRef}
+    ref={internalRef}
     style={{flex: 1}}
     provider="google"
     camera={camera}
@@ -36,14 +44,15 @@ console.log('deliveryPersonLocation:', deliveryPersonLocation);
     showsUserLocation={true}
     userLocationCalloutEnabled={true}
     userLocationPriority='high'
-    showsTraffic={true}
-    pitchEnabled={true}
+    showsTraffic={false}
+    pitchEnabled={false}
     followsUserLocation={true}
     showsCompass={true}
-    showsBuildings={true}
-    showsIndoors={true}
+    showsBuildings={false}
+    showsIndoors={false}
     showsScale={false}
     showsIndoorLevelPicker={false}
+     onMapReady={onMapReady}
     >
  {deliveryLocation && (hasPickedUp || hasAccepted) && (
   <MapViewDirections

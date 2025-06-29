@@ -2,7 +2,7 @@ import {create} from "zustand"
 
 interface MapStore {
     mapRef: any
-    setMapRef: (mapRef: any) => void
+    setMapRef: (ref: any) => void
 }
 
 export const useMapRefStore = create<MapStore>((set) => ({
