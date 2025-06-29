@@ -28,7 +28,7 @@ const OrderSummary:FC<{order : any}> = ({order}) => {
             </View>
              <View>
                     <CustomText variant='h7' fontFamily={Fonts.SemiBold}>Order summary</CustomText>
-                    <CustomText variant='h8' fontFamily={Fonts.Medium}>Order ID - #</CustomText>
+                    <CustomText variant='h8' fontFamily={Fonts.Medium}>Order ID - #{order?.orderId}</CustomText>
                 </View>
         </View>
 
