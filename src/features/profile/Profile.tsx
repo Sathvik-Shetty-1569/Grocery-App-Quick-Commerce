@@ -43,7 +43,7 @@ const Profile = () => {
                     YOUR INFORMATION
                 </CustomText>
                 <ActionButton  icon = "book-outline" label = "Address book"/>
-                <ActionButton icon = "infromation-circle-outline" label = "About us"/>
+                <ActionButton icon = "information-circle-outline" label = "About us"/>
                 <ActionButton
                 icon = "log-out-outline"
                 label = "Logout"

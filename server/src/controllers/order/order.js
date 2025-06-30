@@ -139,16 +139,23 @@ export const getOrders = async (req, reply) => {
     try{
         const{status, customerId, deliveryPartnerId, branchId} = req.query;
         let query = {};
+
+        if (branchId) {
+  query.branch = branchId;
+}
         if(status){
             query.status = status;
+        }
+
+        if(deliveryPartnerId){
+            query.deliveryPartner = deliveryPartnerId;
         }
         if(customerId){
             query.customer = customerId;
         }
-        if(deliveryPartnerId){
-            query.deliveryPartner = deliveryPartnerId;
-            query.branch = branchId;
-        }
+        
+        console.log("Fetching orders with query:", query);
+
         const orders = await Order.find(query).populate("customer branch items.item deliveryPartner");
 
         return reply.send(orders);
@@ -161,34 +168,16 @@ export const getOrders = async (req, reply) => {
 export const getOrderById = async (req, reply) => {
     try{
         const {orderId} = req.params;
-        const order = await Order.findById(orderId)
-        .populate('customer')
-        .populate({path: 'branch',populate: {path: 'deliveryPartner'}})
-        .populate('items.item');
+        const order = await Order.findById(orderId).populate("customer branch items.item deliveryPartner");
 
-
-            if(!order){
+        if(!order){
             return reply.status(404).send({message : "Order not found"});
         }
-
-
- const deliveryPartner = order.branch?.deliveryPartner?.[0];
-
-        if (deliveryPartner?.livelocation) {
-            // Clone the Mongoose object to modify it
-            const orderObject = order.toObject();
-            orderObject.deliveryPersonLocation = {
-                latitude: deliveryPartner.livelocation.latitude,
-                longitude: deliveryPartner.livelocation.longitude,
-                address: deliveryPartner.address || "No address available",
-            };
-            return reply.send(orderObject);
-        }
-console.log("Order:", JSON.stringify(order, null, 2));
         
     return reply.send(order);
     }
     catch(error){
+
         return reply.status(500).send({message : "Failed to retrieve order", error});
     }
 }

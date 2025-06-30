@@ -17,6 +17,6 @@ export const orderRoutes = async (fastify, options) => {
     fastify.post('/order', createOrder);
     fastify.get("/order", getOrders);
     fastify.patch("/order/:orderId/status", updateOrderStatus);
-    fastify.post("/order/:orderId/comfirm", comfirmOrder);
+    fastify.post("/order/:orderId/confirm", comfirmOrder);
     fastify.get("/order/:orderId", getOrderById);
 };

@@ -29,7 +29,7 @@ console.log("Current Order.customer:", currentOrder?.customer);
 
     let msg = "Packing your order"
     let time = "Arriving in 10 minutes"
-    if(currentOrder?.status === "confiremd"){
+    if(currentOrder?.status === "confirmed"){
         msg = "Arriving Soon"
         time = "Arriving in 8 minutes"
     }
