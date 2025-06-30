@@ -53,4 +53,34 @@ export const fetchOrders = async(status: string, userId: string, branchId: strin
         console.log("Fetch orders error", error);
         return null;
     }
+
+
+}
+
+export const sendLiveOrderUpdates = async(id: string, location: any, status: string)=>{
+    try{
+        console.log("Send live order updates", id, location, status);
+    const response = await appAxios.patch(`/order/${id}/status`,{
+        deliveryPersonLocation: location,
+        status
+    })
+    return response.data;
+}
+catch(error){
+    console.log("Send live order updates error", error);
+    return null;
+}
+}
+
+export const confirmOrder = async(id: string, location: any)=>{
+    try {
+        const response = await appAxios.post(`/order/${id}/confirm`, {
+            deliveryPersonLocation: location,
+        })
+        return response.data;
+    } catch (error) {
+        console.log("Confirm order error", error);
+        return null;
+        
+    }
 }

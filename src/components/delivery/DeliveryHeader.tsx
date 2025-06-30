@@ -38,7 +38,7 @@ const DeliveryHeader:FC<DeliveryHeaderProps> = ({name, email}) => {
                 storage.clearAll();
             }}
             >
-               <Icon name = "logout" size ={30} Colors="black"/> 
+               <Icon name = "logout" size ={30} color="black"/> 
             </TouchableOpacity>
         </View>
 

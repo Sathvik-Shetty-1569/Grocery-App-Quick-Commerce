@@ -89,7 +89,7 @@ export const comfirmOrder = async (req, reply) => {
 console.log("🔹 Emitting orderConfirmed for orderId:", orderId, "payload:", order);
 
         req.server.io.to(orderId).emit("orderConfirmed", order);
-                        await order.save();
+        await order.save();
 
 
         return reply.send(order);
