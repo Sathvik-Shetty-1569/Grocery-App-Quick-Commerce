@@ -50,6 +50,7 @@ const DeliveryMap = () => {
     },[])
 
     const acceptOrder = async () => {
+        console.log('Accept Order',orderData);
         const data = await confirmOrder(orderData?._id, myLocation);
         if(data){
             setCurrentOrder(data);

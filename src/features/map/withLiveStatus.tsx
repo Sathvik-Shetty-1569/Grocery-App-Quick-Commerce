@@ -106,6 +106,7 @@ const styles = StyleSheet.create({
         gap: 10,
         borderRadius: 15,
         paddingVertical: 15,
+        marginBottom: 10,
         padding: 10
     },
     img: {

@@ -11,7 +11,7 @@ const CustomHeader:FC<{title: string, search?: boolean}> = ({title, search}) => 
    <SafeAreaView>
 <View style={styles.flexRow}>
 <Pressable onPress={() => goBack()}>
-    <Icon name = "chevron-back" color={Colors.text} size={RFValue(16)}/>
+    <Icon name = "chevron-back" color={Colors.text} size={RFValue(25)}/>
 </Pressable>
 <CustomText style={styles.text} variant='h5' fontFamily={Fonts.SemiBold}>{title}</CustomText>
 <View>

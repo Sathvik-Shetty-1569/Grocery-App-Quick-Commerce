@@ -9,6 +9,7 @@ import { reverseGeocode } from '@service/mapService';
 import { fetchOrders } from '@service/orderService';
 import DeliveryOrderItem from '@components/delivery/DeliveryOrderItem';
 import CustomText from '@components/ui/CustomText';
+import withLiveOrder from './withLiveOrder';
 
 const DeliveryDashboard = () => {
   const {user, setUser} = useAuthStore();
@@ -99,7 +100,7 @@ const DeliveryDashboard = () => {
   )
 }
 
-export default DeliveryDashboard
+export default withLiveOrder(DeliveryDashboard)
 
 const styles = StyleSheet.create({
 
