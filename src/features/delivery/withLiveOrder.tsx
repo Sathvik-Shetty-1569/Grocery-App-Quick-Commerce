@@ -22,7 +22,7 @@ const WithLiveOrder:FC<P> = (props) => {
                 setMyLocation({latitude, longitude})
             },
         (error)=> console.log("Error fetching location", error),
-    {enableHighAccuracy: true, distanceFilter: 10})
+    {enableHighAccuracy: true, distanceFilter: 200})
 
     return () => Geolocation.clearWatch(watchId)
 

@@ -1,4 +1,4 @@
-import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { ActivityIndicator, Alert, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useAuthStore } from '@state/authStore'
 import { confirmOrder, getOrderById, sendLiveOrderUpdates } from '@service/orderService'
@@ -20,6 +20,7 @@ const DeliveryMap = () => {
 
     const user = useAuthStore((state) => state.user)
     const [orderData, setOrderData] = useState<any>(null)
+    const [loading, setLoading] = useState<boolean>(true)
     const [myLocation, setMyLocation] = useState<any>(null)
     const route = useRoute();
 
@@ -31,6 +32,7 @@ const DeliveryMap = () => {
     const fetchOrderDetails = async () => {
         const data = await getOrderById(orderDetails?._id as any)
         setOrderData(data);
+        setLoading(false);
     }
 
     
@@ -44,7 +46,7 @@ const DeliveryMap = () => {
             setMyLocation({latitude, longitude})
         },
         (err) => console.log("Error fetching GeoLocation", err),
-        {enableHighAccuracy: true, distanceFilter: 10}
+        {enableHighAccuracy: true, distanceFilter: 200}
         );
         return () => Geolocation.clearWatch(watchId);
     },[])
@@ -134,7 +136,11 @@ const DeliveryMap = () => {
             sendLiveUpdates();
         },[myLocation]);
         
-    
+    if(loading){
+        return <View style ={[styles.container, {justifyContent: 'center', alignItems: 'center'}]}>
+            <ActivityIndicator color="#000" size = "small"/>
+        </View>
+    }
   return (
     <View style = {styles.container}>
         <LiveHeader type = "Delivery" title = {message} secondTitle ="Delivery in 10 minutes"/>
@@ -142,14 +148,17 @@ const DeliveryMap = () => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
         >
-
+            {orderData?.deliveryLocation && orderData?.pickupLocation &&(
             <LiveMap
-            deliveryLocation ={orderData?.deliveryLocation || null}
-            pickupLocation = {orderData?.pickupLocation || null}
             deliveryPersonLocation = {orderData?.deliveryPersonLocation || myLocation}
+            deliveryLocation ={orderData?.deliveryLocation || null}
             hasAccepted = {orderData?.deliveryPartner?._id == user?._id && orderData?.status == 'confirmed'}
+            pickupLocation = {orderData?.pickupLocation || null}
             hasPickedUp = {orderData?.status === 'arriving'}
             />
+            )}
+
+            
 
             <DeliveryDetails details={orderData?.customer}/>
             <OrderSummary order={orderData}/>

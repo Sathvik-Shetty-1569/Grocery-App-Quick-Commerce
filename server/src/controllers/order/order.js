@@ -84,9 +84,8 @@ export const comfirmOrder = async (req, reply) => {
         order.deliveryPersonLocation = {
             latitude: deliveryPersonLocation.latitude,
             longitude: deliveryPersonLocation.longitude,
-            address: deliveryPerson.address || "No address available",
+            address: deliveryPersonLocation?.address || "No address available",
         };
-console.log("🔹 Emitting orderConfirmed for orderId:", orderId, "payload:", order);
 
         req.server.io.to(orderId).emit("orderConfirmed", order);
         await order.save();
