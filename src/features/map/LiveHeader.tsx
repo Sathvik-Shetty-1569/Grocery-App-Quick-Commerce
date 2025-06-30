@@ -34,7 +34,7 @@ return;
 >
     <Icon
     name="chevron-back"
-    size={RFValue(16)}
+    size={RFValue(25)}
     color ={isCustomer ? 'white' : 'black'}
     />
 </Pressable>
