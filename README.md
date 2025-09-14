@@ -46,7 +46,7 @@
         <br/><b>🏠 Customer Home</b>
       </td>
       <td align="center">
-        <img src="./screenshots/delivery-home.gif" alt="Delivery Home" width="250" />
+        <img src="./screenshots/WhatsApp Image 2025-09-14 at 13.47.35_5a2fb419.jpg" alt="Delivery Home" width="250" />
         <br/><b>📦 Delivery Dashboard</b>
       </td>
     </tr>
