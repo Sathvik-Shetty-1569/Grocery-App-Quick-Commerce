@@ -11,9 +11,54 @@
   </div>
 
   <br />
+  <div align="center">
+  <h1>🛒 Grocery Delivery App</h1>
+  <p>A comprehensive dual-platform grocery delivery solution for customers and delivery partners</p>
   
-  <!-- Screenshots placeholder -->
+  <div>
+    <img src="https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React Native" />
+    <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+    <img src="https://img.shields.io/badge/Zustand-FF9500?style=for-the-badge&logo=zustand&logoColor=white" alt="Zustand" />
+    <img src="https://img.shields.io/badge/Socket.IO-010101?style=for-the-badge&logo=socketdotio&logoColor=white" alt="Socket.IO" />
+    <img src="https://img.shields.io/badge/React_Navigation-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React Navigation" />
+  </div>
+
+  <br />
+
+  <!-- App Preview GIFs -->
+  <h2>📸 App Previews</h2>
+  <p><em>Customer & Delivery partner flows in action 🚀</em></p>
+
+  <table>
+    <tr>
+      <td align="center">
+        <img src="./screenshots/WhatsApp Image 2025-09-14 at 13.47.35_13a9418.jpg" alt="Customer Login" width="250" />
+        <br/><b>🔐 Customer Login</b>
+      </td>
+      <td align="center">
+        <img src="./screenshots/WhatsApp Image 2025-09-14 at 13.47.35_13a94183.jpg" alt="Customer Login" width="250" />
+        <br/><b>🚚 Delivery Login</b>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <img src="./screenshots/customer-home.gif" alt="Customer Home" width="250" />
+        <br/><b>🏠 Customer Home</b>
+      </td>
+      <td align="center">
+        <img src="./screenshots/delivery-home.gif" alt="Delivery Home" width="250" />
+        <br/><b>📦 Delivery Dashboard</b>
+      </td>
+    </tr>
+  </table>
+
+  <br />
+
   <p><em>📱 A modern grocery shopping experience with real-time delivery tracking 🚚</em></p>
+</div>
+
+  <!-- Screenshots placeholder -->
+ 
 </div>
 
 ## ✨ Key Highlights
