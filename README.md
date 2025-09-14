@@ -20,7 +20,7 @@
 <table>
   <tr>
     <td align="center">
-      <video src="./screenshots/WhatsApp Video 2025-09-14 at 13.47.37_db3b36a9.mp4" width="250" controls></video>
+      <img src="./screenshots/WhatsApp Video 2025-09-14 at 13.47.37_db3b36a9.gif" alt="Customer Login" width="250" />
       <br/><b>🔐 Customer Login</b>
     </td>
     <td align="center">
@@ -30,7 +30,7 @@
   </tr>
   <tr>
     <td align="center">
-      <video src="./screenshots/WhatsApp Video 2025-09-14 at 13.47.43_fd0fa8be.mp4" width="250" controls></video>
+      <img src="./screenshots/WhatsApp Video 2025-09-14 at 13.47.43_fd0fa8be.gif" alt="Customer Home" width="250" />
       <br/><b>🏠 Customer Home</b>
     </td>
     <td align="center">
