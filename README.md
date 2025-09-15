@@ -14,35 +14,178 @@
   <br />
 
   <!-- App Preview GIFs -->
- <h2>📸 App Previews</h2>
-<p><em>Customer & Delivery partner flows in action 🚀</em></p>
+<h2>📸 App Previews</h2>
+<p><em>Complete customer & delivery partner experience showcase 🚀</em></p>
 
+### 🔐 **Authentication & Onboarding**
 <table>
   <tr>
     <td align="center">
-      <img src="./screenshots/WhatsApp Video 2025-09-14 at 13.47.37_db3b36a9.gif" alt="Customer Login" width="250" />
+      <img src="./screenshots/WhatsApp Video 2025-09-14 at 13.47.43_fd0fa8be.gif" alt="Customer Login Flow" width="250" />
       <br/><b>🔐 Customer Login</b>
+      <br/><sub>OTP-based authentication with smooth animations</sub>
     </td>
     <td align="center">
-      <img src="./screenshots/WhatsApp Image 2025-09-14 at 13.47.35_13a94183.jpg" alt="Delivery Login" width="250" />
-      <br/><b>🚚 Delivery Login</b>
-    </td>
-  </tr>
-  <tr>
-    <td align="center">
-      <img src="./screenshots/WhatsApp Video 2025-09-14 at 13.47.43_fd0fa8be.gif" alt="Customer Home" width="250" />
-      <br/><b>🏠 Customer Home</b>
-    </td>
-    <td align="center">
-      <img src="./screenshots/WhatsApp Image 2025-09-14 at 13.47.35_5a2fb419.jpg" alt="Delivery Home" width="250" />
-      <br/><b>📦 Delivery Dashboard</b>
+      <img src="./screenshots/WhatsApp Image 2025-09-14 at 13.47.35_13a94183.jpg" alt="Delivery Partner Login" width="250" />
+      <br/><b>🚚 Delivery Partner Portal</b>
+      <br/><sub>Dedicated delivery partner authentication</sub>
     </td>
   </tr>
 </table>
 
-<br />
+### 🛍️ **Customer Shopping Experience**
+<table>
+  <tr>
+    <td align="center">
+      <img src="./screenshots/WhatsApp Video 2025-09-14 at 13.47.37_db3b36a9.gif" alt="Customer Home & Browse" width="250" />
+      <br/><b>🏠 Product Discovery</b>
+      <br/><sub>Browse categories with smooth navigation</sub>
+    </td>
+    <td align="center">
+      <img src="./screenshots/IMG-20250915-WA0007.jpg" alt="Add to Cart" width="250" />
+      <br/><b>➕ Add to Cart</b>
+      <br/><sub>Milk, Dairy & Paneer with quantity controls</sub>
+    </td>
+  </tr>
+</table>
 
+### 🛒 **Shopping Cart & Checkout Flow**
+<table>
+  <tr>
+    <td align="center">
+      <img src="./screenshots/IMG-20250915-WA0005.jpg" alt="Checkout Process" width="250" />
+      <br/><b>💳 Seamless Checkout</b>
+      <br/><sub>Detailed bill breakdown with delivery charges</sub>
+    </td>
+    <td align="center">
+      <img src="./screenshots/IMG-20250915-WA0006.jpg" alt="Order Placed Confirmation" width="250" />
+      <br/><b>✅ Order Confirmation</b>
+      <br/><sub>Real-time packing status with ETA & map</sub>
+    </td>
+  </tr>
+</table>
+
+### 📍 **Order Tracking & Live Updates**
+<table>
+  <tr>
+    <td align="center">
+      <img src="./screenshots/IMG-20250915-WA0008.jpg" alt="Delivery Partner Available Orders" width="250" />
+      <br/><b>📋 Available Orders</b>
+      <br/><sub>Delivery partner view of orders to accept</sub>
+    </td>
+    <td align="center">
+      <img src="./screenshots/Screenshot 2025-09-15 203045.png" alt="Admin Panel" width="250" />
+      <br/><b>⚙️ Admin Management Panel</b>
+      <br/><sub>Inventory, branches & delivery partner management</sub>
+    </td>
+  </tr>
+</table>
+
+### 🚚 **Delivery Partner Experience**
+<table>
+  <tr>
+    <td align="center">
+      <img src="./screenshots/IMG-20250915-WA0009.jpg" alt="Active Delivery Navigation" width="250" />
+      <br/><b>🗺️ Live Delivery Navigation</b>
+      <br/><sub>Interactive GPS map with customer location</sub>
+    </td>
+    <td align="center">
+      <img src="./screenshots/IMG-20250915-WA0010.jpg" alt="Delivery Completed" width="250" />
+      <br/><b>✅ Delivery Completed</b>
+      <br/><sub>Order delivered successfully status</sub>
+    </td>
+  </tr>
+</table>
+
+### 🎯 **Complete User Journey Overview**
+<div align="center">
+  
+| **Step** | **Customer Experience** | **Delivery Partner Experience** | **Admin Experience** |
+|----------|-------------------------|----------------------------------|---------------------|
+| **1. Authentication** | 📱 OTP-based login | 🔐 Email/Password portal | 🛡️ Admin dashboard access |
+| **2. Browse/Receive** | 🛍️ Category browsing | 📦 Order notifications | 📊 Monitor all activities |
+| **3. Add/Accept** | ➕ Add to cart | ✅ Accept orders | 🏪 Manage inventory |
+| **4. Checkout/Navigate** | 💳 Secure checkout | 🗺️ GPS navigation | 👥 Manage delivery partners |
+| **5. Track/Deliver** | 📍 Live tracking | ✅ Complete delivery | 📈 Analytics & reports |
+
+</div>
+
+### ✨ **Key Features Highlighted**
+
+<div align="center">
+
+🎨 **Smooth Animations** • 📍 **Real-time GPS** • 🔔 **Push Notifications** • 💳 **Secure Payments**
+
+🛒 **Smart Cart** • 🗺️ **Interactive Maps** • ⚡ **Lightning Fast** • 📱 **Responsive Design**
+
+⚙️ **Admin Panel** • 📊 **Analytics Dashboard** • 🏪 **Inventory Management** • 👥 **User Management**
+
+</div>
+
+### 🏗️ **Three-Tier Architecture**
+
+<table>
+  <tr>
+    <th width="33%">👨‍💻 Customer App</th>
+    <th width="33%">🚚 Delivery Partner App</th>
+    <th width="33%">⚙️ Admin Dashboard</th>
+  </tr>
+  <tr>
+    <td align="center">
+      • Product browsing<br/>
+      • Cart management<br/>
+      • Order placement<br/>
+      • Live tracking<br/>
+      • Payment processing
+    </td>
+    <td align="center">
+      • Order notifications<br/>
+      • GPS navigation<br/>
+      • Status updates<br/>
+      • Earnings tracking<br/>
+      • Route optimization
+    </td>
+    <td align="center">
+      • Inventory management<br/>
+      • User management<br/>
+      • Branch operations<br/>
+      • Analytics & reports<br/>
+      • System configuration
+    </td>
+  </tr>
+</table>
+
+---
+
+<div align="center">
+<p><em>📱 A complete ecosystem for modern grocery delivery with customer, delivery partner, and admin experiences 🚚</em></p>
+
+**🌟 Experience the future of grocery delivery - Three apps in one ecosystem! 🌟**
+
+<div style="margin: 20px 0;">
+  <img src="https://img.shields.io/badge/📱_Customer_App-Ready-success?style=for-the-badge" alt="Customer App" />
+  <img src="https://img.shields.io/badge/🚚_Delivery_App-Ready-success?style=for-the-badge" alt="Delivery App" />
+  <img src="https://img.shields.io/badge/⚙️_Admin_Panel-Ready-success?style=for-the-badge" alt="Admin Panel" />
+</div>
+
+</div>
+
+### ✨ **Key Features Highlighted**
+
+<div align="center">
+
+🎨 **Smooth Animations** • 📍 **Real-time GPS** • 🔔 **Push Notifications** • 💳 **Secure Payments**
+
+🛒 **Smart Cart** • 🗺️ **Interactive Maps** • ⚡ **Lightning Fast** • 📱 **Responsive Design**
+
+</div>
+
+---
+
+<div align="center">
 <p><em>📱 A modern grocery shopping experience with real-time delivery tracking 🚚</em></p>
+
+**🌟 Experience the future of grocery delivery - Download now! 🌟**
 </div>
 
 
