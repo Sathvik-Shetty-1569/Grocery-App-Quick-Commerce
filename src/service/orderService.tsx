@@ -74,13 +74,24 @@ catch(error){
 
 export const confirmOrder = async(id: string, location: any)=>{
     try {
+        console.log("Confirming order:", id, "Location:", location);
         const response = await appAxios.post(`/order/${id}/confirm`, {
             deliveryPersonLocation: location,
         })
+        console.log("Confirm order success:", response.data);
         return response.data;
-    } catch (error) {
-        console.log("Confirm order error", error);
+    } catch (error: any) {
+        console.log("Confirm order error details:", {
+            message: error.message,
+            status: error.response?.status,
+            statusText: error.response?.statusText,
+            data: error.response?.data,
+            config: {
+                url: error.config?.url,
+                method: error.config?.method,
+                headers: error.config?.headers
+            }
+        });
         return null;
-        
     }
 }

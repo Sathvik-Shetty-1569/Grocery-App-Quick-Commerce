@@ -14,6 +14,7 @@ import { useRoute } from '@react-navigation/native'
 import Geolocation from '@react-native-community/geolocation'
 import { hocStyles } from '@styles/GlobalStyle'
 import CustomButton from '@components/ui/CustomButton'
+import { tokenStorage } from '@state/storage'
 
 
 const DeliveryMap = () => {
@@ -52,15 +53,30 @@ const DeliveryMap = () => {
     },[])
 
     const acceptOrder = async () => {
-        console.log('Accept Order',orderData);
+        console.log('=== DEBUG INFO ===');
+        console.log('Accept Order', orderData);
+        console.log('Current Location:', myLocation);
+        console.log('User:', user);
+        console.log('Access Token:', tokenStorage.getString('accessToken'));
+        console.log('==================');
+        
+        if (!myLocation) {
+            Alert.alert('Location Error', 'Unable to get your current location. Please enable GPS and try again.');
+            return;
+        }
+        
+        if (!orderData?._id) {
+            Alert.alert('Order Error', 'Invalid order data. Please try again.');
+            return;
+        }
+        
         const data = await confirmOrder(orderData?._id, myLocation);
         if(data){
             setCurrentOrder(data);
-            Alert.alert('Order Accepted, Grab your package');
-
+            Alert.alert('Success', 'Order Accepted! Grab your package and start delivery.');
         }
         else{
-            Alert.alert("Something went wrong");
+            Alert.alert('Error', 'Failed to accept order. Please check your internet connection and try again.');
         }
         fetchOrderDetails();
     }
