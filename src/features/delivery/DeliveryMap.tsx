@@ -41,43 +41,111 @@ const DeliveryMap = () => {
         fetchOrderDetails()
     },[])
 
-        useEffect(() => {
-        const watchId = Geolocation.watchPosition(async(position) => {
-            const {latitude, longitude} = position.coords
-            setMyLocation({latitude, longitude})
-        },
-        (err) => console.log("Error fetching GeoLocation", err),
-        {enableHighAccuracy: true, distanceFilter: 200}
+    useEffect(() => {
+        const getInitialLocation = () => {
+            Geolocation.getCurrentPosition(
+                (position) => {
+                    const {latitude, longitude} = position.coords;
+                    console.log('Initial location found:', latitude, longitude);
+                    setMyLocation({latitude, longitude});
+                },
+                (error) => {
+                    console.log('Error getting initial location:', error);
+                    // Fallback: Try again after 2 seconds
+                    setTimeout(() => {
+                        Geolocation.getCurrentPosition(
+                            (position) => {
+                                const {latitude, longitude} = position.coords;
+                                console.log('Fallback location found:', latitude, longitude);
+                                setMyLocation({latitude, longitude});
+                            },
+                            (fallbackError) => {
+                                console.log('Fallback location error:', fallbackError);
+                            },
+                            {enableHighAccuracy: false, timeout: 10000, maximumAge: 60000}
+                        );
+                    }, 2000);
+                },
+                {enableHighAccuracy: true, timeout: 15000, maximumAge: 60000}
+            );
+        };
+        
+        // Get initial location
+        getInitialLocation();
+        
+        // Set up continuous watching
+        const watchId = Geolocation.watchPosition(
+            (position) => {
+                const {latitude, longitude} = position.coords;
+                console.log('Location updated:', latitude, longitude);
+                setMyLocation({latitude, longitude});
+            },
+            (err) => {
+                console.log("Error watching location", err);
+            },
+            {enableHighAccuracy: true, distanceFilter: 100, interval: 5000}
         );
+        
         return () => Geolocation.clearWatch(watchId);
-    },[])
+    }, [])
 
     const acceptOrder = async () => {
         console.log('=== DEBUG INFO ===');
         console.log('Accept Order', orderData);
         console.log('Current Location:', myLocation);
         console.log('User:', user);
-        console.log('Access Token:', tokenStorage.getString('accessToken'));
+        console.log('Access Token exists:', !!tokenStorage.getString('accessToken'));
         console.log('==================');
         
+        // If no location, try to get it immediately
         if (!myLocation) {
-            Alert.alert('Location Error', 'Unable to get your current location. Please enable GPS and try again.');
-            return;
+            console.log('No location available, trying to get current position...');
+            try {
+                const position = await new Promise<GeolocationPosition>((resolve, reject) => {
+                    Geolocation.getCurrentPosition(
+                        resolve,
+                        reject,
+                        {enableHighAccuracy: false, timeout: 5000, maximumAge: 60000}
+                    );
+                });
+                
+                const currentLocation = {
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude
+                };
+                
+                console.log('Got location for order:', currentLocation);
+                setMyLocation(currentLocation);
+                
+                // Proceed with this location
+                const data = await confirmOrder(orderData?._id, currentLocation);
+                if(data){
+                    setCurrentOrder(data);
+                    Alert.alert('Success', 'Order Accepted! Grab your package and start delivery.');
+                } else {
+                    Alert.alert('Error', 'Failed to accept order. Please check your internet connection and try again.');
+                }
+            } catch (locationError) {
+                console.log('Failed to get location:', locationError);
+                Alert.alert('Location Error', 'Unable to get your current location. Please enable GPS, check app permissions, and try again.');
+                return;
+            }
+        } else {
+            // Location is available, proceed normally
+            if (!orderData?._id) {
+                Alert.alert('Order Error', 'Invalid order data. Please try again.');
+                return;
+            }
+            
+            const data = await confirmOrder(orderData?._id, myLocation);
+            if(data){
+                setCurrentOrder(data);
+                Alert.alert('Success', 'Order Accepted! Grab your package and start delivery.');
+            } else {
+                Alert.alert('Error', 'Failed to accept order. Please check your internet connection and try again.');
+            }
         }
         
-        if (!orderData?._id) {
-            Alert.alert('Order Error', 'Invalid order data. Please try again.');
-            return;
-        }
-        
-        const data = await confirmOrder(orderData?._id, myLocation);
-        if(data){
-            setCurrentOrder(data);
-            Alert.alert('Success', 'Order Accepted! Grab your package and start delivery.');
-        }
-        else{
-            Alert.alert('Error', 'Failed to accept order. Please check your internet connection and try again.');
-        }
         fetchOrderDetails();
     }
 

@@ -54,14 +54,14 @@ const DeliveryOrderItem: FC<{index : number; item : Order}> = ({index, item}) =>
         </View>
       </View>
       <View style ={styles.itemsContainer}>
-        {item.items.slice(0,2).map((i, idx) => {
+        {item.items?.slice(0,2).map((i, idx) => {
           return(
             <CustomText
             variant='h8' 
             numberOfLines={1}
             key={idx}
             >
-              {i.count}x{i.item.name}
+              {i.count || 0}x{i.item?.name || 'Unknown Item'}
             </CustomText>
           );
         })}
